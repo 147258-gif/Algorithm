@@ -1,3 +1,9 @@
+[TOC]
+
+
+
+## 前缀和
+
 ### **[303. 区域和检索 - 数组不可变](https://leetcode.cn/problems/range-sum-query-immutable/)**
 
 给定一个整数数组  `nums`，处理以下类型的多个查询:

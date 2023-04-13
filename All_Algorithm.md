@@ -84,15 +84,13 @@ class NumArray:
 
 
 
-
-
 ### **[304. 二维区域和检索 - 矩阵不可变](https://leetcode.cn/problems/range-sum-query-2d-immutable/)**
 
 给定一个二维矩阵 `matrix`，以下类型的多个请求：
 
 - 计算其子矩形范围内元素的总和，该子矩阵的 **左上角** 为 `(row1, col1)` ，**右下角** 为 `(row2, col2)` 。
 
-实现 `NumMatrix` 类：
+  实现 `NumMatrix` 类：
 
 - `NumMatrix(int[][] matrix)` 给定整数矩阵 `matrix` 进行初始化
 
@@ -154,6 +152,12 @@ class NumMatrix:
 # Your NumMatrix object will be instantiated and called as such:
 # obj = NumMatrix(matrix)
 # param_1 = obj.sumRegion(row1,col1,row2,col2)
+self.preSum[i][j] = self.preSum[i - 1][j] + self.preSum[i][j - 1] + matrix[i - 1][j - 1] - self.preSum[i - 1][j - 1]
+```
+
+这行代码是在初始化类时，计算前缀和。前缀和是一种数据结构，可以用于快速计算矩阵中子矩阵的和。这行代码的含义是：计算 `(i,j)` 点左上角的子矩阵的和。这个子矩阵包括矩阵中以 `(i,j)` 为右下角的矩阵和 `(i-1,j)` 行的矩阵、`(i,j-1)` 列的矩阵以及 `(i-1,j-1)` 点的矩阵。为了避免重复计算，需要减去 `(i-1,j-1)` 点的矩阵。最后，要注意 `matrix` 中的索引是从 `0` 开始的，但是 `preSum` 中的索引是从 `1` 开始的，因此需要在 `matrix` 的索引上减去 1，即 `matrix[i - 1][j - 1]`。
+
+```
 [0, 0 , 0 , 0 , 0 , 0 ]
 [0, 3 , 3 , 4 , 8 , 10]
 [0, 8 , 14, 18, 24, 27]
@@ -177,3 +181,13 @@ class NumMatrix:
 - `sumRegion()` 方法中只有常数个变量，空间复杂度为 O(1)。
 
 因此，总的空间复杂度为 O(mn)。
+
+# 解题思路
+
+做这种初始化一次、检索多次的题目的秘诀：在初始化的时候做预处理。 今天的每日一题让求二维数组中某个子矩形区域的和。很容易看出，今天的题目是 303. 区域和检索 - 数组不可变 的升级版。
+
+同样地，今天的题目仍然用 preSum（前缀和）求解，包括两个步骤。
+
+![image-20230413180834809](D:\pic\typora_pic\image-20230413180834809.png)
+
+![image-20230413180845069](D:\pic\typora_pic\image-20230413180845069.png)
